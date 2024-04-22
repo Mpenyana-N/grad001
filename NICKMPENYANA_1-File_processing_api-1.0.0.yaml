@@ -1,0 +1,37 @@
+---
+openapi: 3.0.0
+info:
+  title: Enviro365 File Processing API
+  description: REST API for file data processing
+  version: 1.0.0
+paths:
+  /upload:
+    post:
+      summary: Lets clients upload text files
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/upload_body'
+        required: true
+      responses:
+        "200":
+          description: File uploaded successfully
+        "400":
+          description: Bad request or file validation error
+  /data/id:
+    get:
+      summary: Lets clients Retrieve uploaded files data by id
+      responses:
+        "200":
+          description: Retrieved data successfully
+        "404":
+          description: Data not found or error
+components:
+  schemas:
+    upload_body:
+      type: object
+      properties:
+        file:
+          type: string
+          format: binary
